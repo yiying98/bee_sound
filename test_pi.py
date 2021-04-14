@@ -54,7 +54,7 @@ def write_ceps(ceps, wavfile):
 	base_wav, ext = os.path.splitext(wavfile)
 	data_wav = base_wav + ".ceps"
 	ceps_result = np.save(data_wav, ceps)
-	print data_wav
+	print (data_wav)
 	
 	return data_wav
 
