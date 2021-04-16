@@ -74,7 +74,7 @@ def main():
     # print('*********************\n')
 
     #use MFCC
-	clf = open('/media/pi/HV620S/KNN_log/saved_models/model_mfcc_LR_all_v1.pkl','rb+')
+	clf = open('/Users/laiyiying/Documents/bee_sound/saved_models/model_mfcc_LR_all_v1.pkl','rb+')
 	clf_a = pickle.load(clf)
 	
     ##    with open('saved_models/model_mfcc_log_1_without_knn.pkl','rb') as f:
@@ -84,11 +84,12 @@ def main():
     #clf = pickle.load(f)
 	X=[]
 	
-	path="/media/pi/HV620S/sound/" #待讀取的資料夾
+	path="/Users/laiyiying/Documents/bee_sound/sound/" #待讀取的資料夾
 	path_list=os.listdir(path)
 	path_list.sort(reverse=True)
 	n = 0
 	for filename in path_list:
+		print(filename)
 		if n == 1:
 			target = filename
 			#print target
@@ -115,7 +116,7 @@ def main():
 	print (data[0])
 	print (data[1][0])
 	print (data[2])
-	DatabaseSender(data)
+	#DatabaseSender(data)
 	
 	
 def DatabaseSender(data):
