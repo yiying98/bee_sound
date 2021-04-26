@@ -41,6 +41,7 @@ try:
     bufsize = 1024
     file_handler = open(("/home/pi/Desktop/"+camera_ID+".jpg"),'rb')
     ftp.cwd('/Lab303/01_研究計畫案/110_111_苗改場_蜂群音頻預警系統開發/110/音頻檔案')
+      
     ftp.storbinary('STOR %s' % os.q`path.basename(camera_ID+'_%s.jpg'%receivetime),file_handler,bufsize)
     ftp.set_debuglevel(0) 
     file_handler.close() 
