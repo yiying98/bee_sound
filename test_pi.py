@@ -62,8 +62,8 @@ def write_ceps(ceps, wavfile):
 
 
 def main(): 
-    
-    hive_id = "normal"
+    HOME = os.listdir("/home")[0]
+    hive_id = HOME
     data=[]
     #genre_list = ["classical", "jazz"] IF YOU WANT TO CLASSIFY ONLY CLASSICAL AND JAZZ
 
@@ -75,9 +75,9 @@ def main():
     # print('*********************\n')
 
     #use MFCC
-    HOME = os.listdir("/home")[0]
-    #clf = open('/home/{HOME}/bee_sound/saved_models/model_mfcc_knn_all_v1.pkl'.format(HOME=HOME),'rb+')
-    clf = open('/home/normal/bee_sound/saved_models/model_mfcc_LR_all_v1.pkl','rb+')
+    
+    clf = open('/home/{HOME}/bee_sound/saved_models/model_mfcc_LR_all_v1.pkl'.format(HOME=HOME),'rb+')
+    #clf = open('/home/normal/bee_sound/saved_models/model_mfcc_LR_all_v1.pkl','rb+')
     clf_a = pickle.load(clf)
     
     ##    with open('saved_models/model_mfcc_log_1_without_knn.pkl','rb') as f:
@@ -142,4 +142,5 @@ def DatabaseSender(data):
     db.close()
     
 if __name__ == "__main__":
+
     main()
