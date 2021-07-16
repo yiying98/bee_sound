@@ -1,0 +1,1 @@
+GENRE_LIST = [ "normal","queenless","virus"]
