@@ -14,20 +14,10 @@ from python_speech_features import mfcc
 import utils
 
 genre_list = utils.GENRE_LIST
-"""
-reads MFCC-files and prepares X_train and y_train.
-genre_list must consist of names of folders/genres consisting of the required MFCC-files
-base_dir must contain genre_list of directories
-"""
 
 # Given a wavfile, computes mfcc and saves mfcc data
 def create_ceps(wav_file):
     sampling_rate, song_array = scipy.io.wavfile.read(wav_file)
-    """Get MFCC
-    ceps  : ndarray of MFCC
-    mspec : ndarray of log-spectrum in the mel-domain
-    spec  : spectrum magnitude
-    """
     ceps = mfcc(song_array)
     ceps = np.nan_to_num(ceps)
     return ceps
@@ -41,17 +31,15 @@ def DatabaseSender(data):
 
     print(sql) # TEST
 
-    # # TEST_NORMAL_OPEN
-    # try:
-    #     cursor.execute(sql)
-    # except Exception:
-    #     print(traceback.format_exc())
+    # TEST_NORMAL_OPEN
+    try:
+        cursor.execute(sql)
+        db.commit()
+        print('Insert data successful...')
+    except Exception:
+        print(traceback.format_exc())
 
-    # # print sql
-    # # Commit your changes in the database
-    # db.commit()
-    # print('Insert data successful...')
-    # db.close()
+    db.close()
 
 def main():
     hive_id = os.listdir("/home")[0]
