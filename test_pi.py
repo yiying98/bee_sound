@@ -1,4 +1,5 @@
 # -*- coding: UTF-8 -*-
+# This should be run under python2.7 !
 import os
 import sys
 import pickle
@@ -38,8 +39,9 @@ def DatabaseSender(data):
     sql = "INSERT INTO `test`(`id`, `hive_id`, `status`, `time`) VALUES (NULL, '" + \
         str(data[0])+"', '"+str(data[1][0])+"', '"+str(data[2])+"')"
 
-    print(sql)
+    print(sql) # TEST
 
+    # # TEST_NORMAL_OPEN
     # try:
     #     cursor.execute(sql)
     # except Exception:
@@ -51,22 +53,20 @@ def DatabaseSender(data):
     # print('Insert data successful...')
     # db.close()
 
-
 def main():
-    HOME = os.listdir("/home")[0]
-    hive_id = HOME
+    hive_id = os.listdir("/home")[0]
 
-    path = "/media/normal/TOS/sound"
-    wavs = [filename for filename in os.listdir(path) if ('wav' in filename)]
+    wav_dir = "/media/{hive_id}/TOS/sound".format(hive_id=hive_id)
+    wavs = [filename for filename in os.listdir(wav_dir) if ('wav' in filename)]
     wavs.sort(reverse=True)
-    wav_filename = os.path.join(path, wavs[1])
+    wav_filename = os.path.join(wav_dir, wavs[1])
     basename, ext = os.path.splitext(wav_filename)
     np.save(basename + '_ceps', create_ceps(wav_filename))
 
     ceps = np.load(basename + '_ceps.npy')
 
     # Use MFCC
-    model = '/home/{HOME}/bee_sound/saved_models/model_mfcc_LR_all_v1.pkl'.format(HOME=HOME)
+    model = '/home/{hive_id}/bee_sound/saved_models/model_mfcc_LR_all_v1.pkl'.format(hive_id=hive_id)
     clf = open(model, 'rb+')
     clf_loaded = pickle.load(clf)
 
