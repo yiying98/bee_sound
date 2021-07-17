@@ -8,6 +8,7 @@ import traceback
 
 import numpy as np
 import scipy
+import scipy.io.wavfile
 import pymysql
 from python_speech_features import mfcc
 
