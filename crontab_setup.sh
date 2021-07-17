@@ -7,7 +7,10 @@ sudo mkdir TOS
 sudo chmod 777 /media/$HIVE_ID/TOS
 
 MOUNT="@reboot root mount /dev/sda1 /media/$HIVE_ID/TOS"
+
+RECORD="*/1 * * * * root sh $(date) >> /home/$HIVE_ID/record.log"
 RECORD="*/1 * * * * root sh /home/$HIVE_ID/Desktop/record.sh >> /home/$HIVE_ID/record.log 2>&1"
+RECORD="*/1 * * * * root sh $(date) >> /home/$HIVE_ID/main.log"
 MFCC="*/1 * * * * $HIVE_ID python2 /home/$HIVE_ID/bee_sound/main.py >> /home/$HIVE_ID/main.log 2>&1"
 
 sudo echo "0 0 * * * root reboot" >> /etc/crontab
