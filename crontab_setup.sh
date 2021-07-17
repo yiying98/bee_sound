@@ -7,13 +7,14 @@ sudo mkdir TOS
 sudo chmod 777 /media/$HIVE_ID/TOS
 
 MOUNT="@reboot root mount /dev/sda1 /media/$HIVE_ID/TOS"
-
+RECORD_SH="sudo arecord -D plughw:2,0 -f S16_LE -d 60 -r 44100 --use-strftime /media/$HIVE_ID/TOS/sound/%Y%m%d-%H%M%v.wav"
 RECORD_DATE="*/1 * * * * $HIVE_ID date >> /home/$HIVE_ID/record.log"
-RECORD="*/1 * * * * root sh /home/$HIVE_ID/bee_sound/record.sh >> /home/$HIVE_ID/record.log 2>&1"
+RECORD="*/1 * * * * root sh /home/$HIVE_ID/Desktop/record.sh >> /home/$HIVE_ID/Desktop/record.log 2>&1"
 CHMOD_SOUND="*/1 * * * * root chmod -R 777 /media/$HIVE_ID/TOS/sound"
 MAIN_DATE="*/1 * * * * $HIVE_ID date >> /home/$HIVE_ID/main.log"
-MAIN="*/1 * * * * $HIVE_ID python2 /home/$HIVE_ID/bee_sound/main.py >> /home/$HIVE_ID/main.log 2>&1"
+MAIN="*/1 * * * * $HIVE_ID python2 /home/$HIVE_ID/bee_sound/main.py >> /home/$HIVE_ID/Desktop/main.log 2>&1"
 
+sudo echo "$RECORD_SH" >> /home/$HIVE_ID/Desktop/record.sh
 sudo echo "0 0 * * * root reboot" >> /etc/crontab
 sudo echo "$MOUNT" >> /etc/crontab
 sudo echo "$RECORD_DATE" >> /etc/crontab

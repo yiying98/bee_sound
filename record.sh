@@ -1,1 +1,0 @@
-sudo arecord  -D plughw:2,0 -f S16_LE -d 60 -r 44100 --use-strftime /media/normal/TOS/sound/%Y%m%d-%H%M%v.wav
