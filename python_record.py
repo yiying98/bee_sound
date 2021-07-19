@@ -5,6 +5,7 @@ import pyaudio
 import wave
 import os
 import re
+import traceback
 from schedule import Job, CancelJob, IntervalError  
 from datetime import datetime, timedelta 
 
@@ -42,25 +43,26 @@ def record():
                     frames_per_buffer=chunk)
     logger.info('Record start at {}'.format(datetime.now())) 
     frames = []
+    try:
+        for ii in range(0,int((samp_rate/chunk)*record_secs)):
+            data = stream.read(chunk,exception_on_overflow = False)
+            frames.append(data)
 
-    for ii in range(0,int((samp_rate/chunk)*record_secs)):
-        data = stream.read(chunk,exception_on_overflow = False)
-        frames.append(data)
+        logger.info('Record end at {}'.format(datetime.now()))  
 
-    logger.info('Record end at {}'.format(datetime.now()))  
-
-    stream.stop_stream()
-    stream.close()
-    audio.terminate()
+        stream.stop_stream()
+        stream.close()
+        audio.terminate()
 
 
-    wavefile = wave.open(wav_output_filename,'wb')
-    wavefile.setnchannels(chans)
-    wavefile.setsampwidth(audio.get_sample_size(form_1))
-    wavefile.setframerate(samp_rate)
-    wavefile.writeframes(b''.join(frames))
-    wavefile.close()
-
+        wavefile = wave.open(wav_output_filename,'wb')
+        wavefile.setnchannels(chans)
+        wavefile.setsampwidth(audio.get_sample_size(form_1))
+        wavefile.setframerate(samp_rate)
+        wavefile.writeframes(b''.join(frames))
+        wavefile.close()
+    except Exception:
+        logging.error(traceback.format_exc())
 
 
 
