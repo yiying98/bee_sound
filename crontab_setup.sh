@@ -13,3 +13,5 @@ sudo echo "0 0 * * * root reboot" >> /etc/crontab
 sudo echo "@reboot root mount /dev/sda1 /media/$HIVE_ID/TOS" >> /etc/crontab
 sudo echo "$RECORD" >> /etc/crontab
 sudo echo "$MAIN" >> /etc/crontab
+
+sudo mount /dev/sda1 /media/$HIVE_ID/TOS
