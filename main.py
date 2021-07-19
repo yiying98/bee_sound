@@ -1,20 +1,27 @@
-# -*- coding: UTF-8 -*-
-# This should be run under python2.7 !
+import schedule 
 import os
 import sys
 import pickle
 import datetime
 import traceback
-
+import logging
 import numpy as np
 import scipy
 import scipy.io.wavfile
 import pymysql
+import time
 from python_speech_features import mfcc
 
 import utils
 
 genre_list = utils.GENRE_LIST
+
+
+logging.basicConfig(level=logging.INFO,format='%(asctime)s %(levelname)s %(message)s',datefmt='%Y-%m-%d %H:%M',filename='main.log')
+
+logger = logging.getLogger(os.path.basename(__file__))  
+logger.setLevel(0)  
+
 
 # Given a wavfile, computes mfcc and saves mfcc data
 def create_ceps(wav_file):
@@ -29,19 +36,19 @@ def DatabaseSender(data):
     cursor = db.cursor()
     sql = "INSERT INTO `test`(`id`, `hive_id`, `status`, `time`) VALUES (NULL, '{hive_id}', '{status}', '{time}')".format(hive_id=data[0], status=data[1][0], time=data[2])
 
-    print(sql) # TEST
+    logging.info(sql) # TEST
 
     # TEST_NORMAL_OPEN
     try:
         cursor.execute(sql)
         db.commit()
-        print('Insert data successful...')
+        logging.info('Insert data successful...')
     except Exception:
-        print(traceback.format_exc())
+        logging.error(traceback.format_exc())
 
     db.close()
 
-def main():
+def classify():
     hive_id = os.listdir("/home")[0]
 
     wav_dir = "/media/{hive_id}/TOS/sound".format(hive_id=hive_id)
@@ -52,6 +59,7 @@ def main():
     np.save(basename + '_ceps', create_ceps(wav_filename))
 
     ceps = np.load(basename + '_ceps.npy')
+    logging.info('ceps saved successfully')
 
     # Use MFCC
     model = '/home/{hive_id}/bee_sound/saved_models/model_mfcc_LR_all_v1.pkl'.format(hive_id=hive_id)
@@ -70,6 +78,15 @@ def main():
     ISOTIMEFORMAT = '%Y-%m-%d %H:%M:%S'
     data.append(datetime.datetime.now().strftime(ISOTIMEFORMAT))
     DatabaseSender(data)
+
+def main():
+    schedule.every(70).seconds.do(classify)
+  
+    while True:
+        schedule.run_pending()
+        time.sleep(1) 
+  
+  
 
 if __name__ == "__main__":
     main()
