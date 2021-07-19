@@ -6,8 +6,8 @@ cd /media/$HIVE_ID
 sudo mkdir TOS
 sudo chmod 777 /media/$HIVE_ID/TOS
 
-RECORD="@reboot python /home/$HIVE_ID/bee_sound/python_record.py"
-MAIN="@reboot python /home/$HIVE_ID/bee_sound/main.py"
+RECORD="@reboot $HIVE_ID python /home/$HIVE_ID/bee_sound/python_record.py"
+MAIN="@reboot $HIVE_ID python /home/$HIVE_ID/bee_sound/main.py"
 
 sudo echo "0 0 * * * root reboot" >> /etc/crontab
 sudo echo "@reboot root mount /dev/sda1 /media/$HIVE_ID/TOS" >> /etc/crontab
