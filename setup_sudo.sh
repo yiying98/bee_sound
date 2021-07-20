@@ -25,7 +25,7 @@ sudo apt install gfortran libatlas-base liblapack-dev
 sudo apt install numpy
 sudo apt install scipy
 sudo apt install python-sklearn python-sklearn-lib python-sklearn-doc
-sudo apt install python-mysql
+sudo apt install python-mysqldb
 sudo git clone http://people.csail.mit.edu/hubert/git/pyaudio.git
 sudo apt-get install libportaudio0 libportaudio2 libportaudiocpp0 portaudio19-dev  
 sudo apt-get install python-dev  
