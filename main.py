@@ -17,7 +17,7 @@ import utils
 genre_list = utils.GENRE_LIST
 
 
-logging.basicConfig(level=logging.INFO,format='%(asctime)s %(levelname)s %(message)s',datefmt='%Y-%m-%d %H:%M%S',filename='main.log')
+logging.basicConfig(level=logging.INFO,format='%(asctime)s %(levelname)s %(message)s',datefmt='%Y-%m-%d %H:%M:%S',filename='main.log')
 
 logger = logging.getLogger(os.path.basename(__file__))  
 logger.setLevel(0)  
