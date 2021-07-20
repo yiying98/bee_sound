@@ -8,6 +8,7 @@ cd /media/$HIVE_ID
 sudo mkdir TOS
 sudo chmod 777 /media/$HIVE_ID/TOS
 sudo mount /dev/sda1 /media/$HIVE_ID/TOS
+cd /home/$HIVE_ID
 
 # crontab setup
 RECORD="@reboot $HIVE_ID python /home/$HIVE_ID/bee_sound/python_record.py"
@@ -27,7 +28,8 @@ sudo apt install scipy
 sudo apt install python-sklearn python-sklearn-lib python-sklearn-doc
 sudo apt install python-mysqldb
 sudo git clone http://people.csail.mit.edu/hubert/git/pyaudio.git
-sudo apt-get install libportaudio0 libportaudio2 libportaudiocpp0 portaudio19-dev  
-sudo apt-get install python-dev  
-cd pyaudio  
+cd /home/$HIVE_ID
+sudo apt-get install libportaudio0 libportaudio2 libportaudiocpp0 portaudio19-dev
+sudo apt-get install python-dev
+cd pyaudio
 sudo python setup.py install
