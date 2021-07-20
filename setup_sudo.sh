@@ -6,10 +6,10 @@ sudo umount /dev/sda1
 sudo ntfslabel /dev/sda1 TOS
 cd /media/$HIVE_ID
 sudo mkdir TOS
-cd /media/$HIVE_ID/TOS
-sudo mkdir sound
 sudo chmod 777 /media/$HIVE_ID/TOS
 sudo mount /dev/sda1 /media/$HIVE_ID/TOS
+cd /media/$HIVE_ID/TOS
+sudo mkdir sound
 cd /home/$HIVE_ID
 
 # crontab setup
