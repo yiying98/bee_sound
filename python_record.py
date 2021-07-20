@@ -11,7 +11,7 @@ from datetime import datetime, timedelta
 
 
   
-logging.basicConfig(level=logging.INFO,format='%(asctime)s %(levelname)s %(message)s',datefmt='%Y-%m-%d %H:%M',filename='python_record.log')
+logging.basicConfig(level=logging.INFO,format='%(asctime)s %(levelname)s %(message)s',datefmt='%Y-%m-%d %H:%M:%S',filename='python_record.log')
 
 logger = logging.getLogger(os.path.basename(__file__))  
 logger.setLevel(0)  
