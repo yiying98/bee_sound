@@ -1,1 +1,2 @@
-pip install schedule
+pip install apscheduler
+pip install python-speech-features
