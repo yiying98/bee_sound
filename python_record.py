@@ -1,4 +1,4 @@
-import schedule  
+from apscheduler.schedulers.blocking import BlockingScheduler 
 import logging   
 import time  
 import pyaudio
@@ -53,6 +53,8 @@ def record():
         stream.stop_stream()
         stream.close()
         audio.terminate()
+        
+        os.mknod(wav_output_filename)
 
 
         wavefile = wave.open(wav_output_filename,'wb')
@@ -67,13 +69,10 @@ def record():
 
 
 def main():  
-    #logging.info('start')
-    #logging.error('error')
-    schedule.every(70).seconds.do(record)
-  
-    while True:
-        schedule.run_pending()
-        time.sleep(1) 
+    sched = BlockingScheduler()
+    sched.add_job(record, 'interval', seconds=70,id='record')
+
+    sched.start()
   
   
 if __name__ == '__main__':  
