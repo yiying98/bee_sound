@@ -44,7 +44,7 @@
 8. `reboot` 重開機後選 newname 登入
 9. Preference >> RaspberryPI Configuration >> 把 Auto login: 改回 Login as user 'pi'
 
-- 更新 code
+## 灌程式
 
 ```sh
 git clone https://github.com/Andrew-mie7/bee_sound.git
@@ -54,9 +54,32 @@ sh setup_no_sudo.sh
 reboot
 ```
 
+## 改麥克風的 Gain
+
 ```sh
 # get the info of Mic Capture Volume
 amixer --card 2 cget numid=8
 # set the value of Mic Capture Volume
 amixer --card 2 cset numid=8 [value]
+```
+
+
+## WiFi 設定
+
+```sh
+sudo nano /etc/wpa_supplicant/wpa_supplicant.conf
+```
+
+把內容改成
+
+```sh
+ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+update_config=1
+country=TW
+
+network={
+        ssid="BIME-lab303-bee-2.4G"
+        psk=""
+        key_mgmt=WPA-PSK
+}
 ```
