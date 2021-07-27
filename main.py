@@ -1,4 +1,4 @@
-import schedule 
+from apscheduler.schedulers.blocking import BlockingScheduler 
 import os
 import sys
 import pickle
@@ -81,11 +81,10 @@ def classify():
     DatabaseSender(data)
 
 def main():
-    schedule.every(70).seconds.do(classify)
-  
-    while True:
-        schedule.run_pending()
-        time.sleep(1) 
+    sched = BlockingScheduler()
+    sched.add_job(classify, 'interval', seconds=70,id='classify')
+
+    sched.start()
   
   
 
