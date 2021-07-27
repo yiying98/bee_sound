@@ -2,6 +2,7 @@ import schedule
 import os
 import sys
 import pickle
+import joblib
 import datetime
 import traceback
 import logging
@@ -62,9 +63,9 @@ def classify():
     logging.info('ceps saved successfully')
 
     # Use MFCC
-    model = '/home/{hive_id}/bee_sound/saved_models/model_mfcc_LR_all_v1.pkl'.format(hive_id=hive_id)
-    clf = open(model, 'rb+')
-    clf_loaded = pickle.load(clf)
+    model = '/home/{hive_id}/bee_sound/saved_models/model_mfcc_all_knn.pkl'.format(hive_id=hive_id)
+    clf_loaded=joblib.load(model)
+
 
     num_ceps = len(ceps)
 
