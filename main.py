@@ -35,7 +35,7 @@ def DatabaseSender(data):
     db = pymysql.connect(host='140.112.94.59', user='root',
                          passwd='taipower', db='110_bee_sound_test', port=33306)
     cursor = db.cursor()
-    sql = "INSERT INTO `Ankeng`(`id`, `hive_id`, `status`, `time`) VALUES (NULL, '{hive_id}', '{status}', '{time}')".format(hive_id=data[0], status=data[1][0], time=data[2])
+    sql = "INSERT INTO `Yilan`(`id`, `hive_id`, `status`, `time`) VALUES (NULL, '{hive_id}', '{status}', '{time}')".format(hive_id=data[0], status=data[1][0], time=data[2])
 
     logging.info(sql) # TEST
 
